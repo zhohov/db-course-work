@@ -14,7 +14,23 @@ services:
       - '5433:5433'
     volumes:
       - pgdata:/var/lib/postgresql/data
-      
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_PASSWORD}
+    env_file:
+      - .env
+    ports:
+      - '8888:80'
+    depends_on:
+      - db
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+
 
 volumes:
   pgdata:
+  pgadmin-data:
