@@ -97,7 +97,7 @@ CREATE TABLE IF NOT EXISTS users_courses (
 );
 ```
 
-### Заполнение таблиц <a name="insert"></a>
+## Заполнение таблиц <a name="insert"></a>
 
 ```SQL
 INSERT INTO ROLES (NAME)
@@ -167,7 +167,6 @@ INSERT INTO users_courses (user_id, course_id) VALUES
 	(2, 3),
 	(2, 4);
 ```
-
 
 ## Запросы <a name="queries"></a>
 
