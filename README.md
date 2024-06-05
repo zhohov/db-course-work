@@ -1,15 +1,26 @@
 # db-course-work
 
-### Оглавление
+## Содержание
 
+* [Предметная область](#description)
 * [Создание таблиц](#create)
 * [Заполнение таблиц](#insert)
 * [Запросы](#queries)
 
+## Предметная область <a name="description"></a>
+В качестве предметной области выбрана тема проектирования базы данных для образовательной платформы. 
 
-### Создание таблиц <a name="create"></a>
+Основными элементами предметной области должны являться:
+-  Пользователь
+-  Роли пользователей
+-  Курс
+-  Материал курса (урок)
+-  Задание для курса
+-  Оценка выполненного задания
 
-```PostgreSQL
+## Создание таблиц <a name="create"></a>
+
+```SQL
 CREATE TABLE IF NOT EXISTS roles (
 	id SERIAL PRIMARY KEY,
 	name VARCHAR(100) NOT NULL UNIQUE
@@ -88,7 +99,7 @@ CREATE TABLE IF NOT EXISTS users_courses (
 
 ### Заполнение таблиц <a name="insert"></a>
 
-```PostgreSQL
+```SQL
 INSERT INTO ROLES (NAME)
 VALUES
 	('Студент'),
@@ -158,25 +169,25 @@ INSERT INTO users_courses (user_id, course_id) VALUES
 ```
 
 
-### Запросы <a name="queries"></a>
+## Запросы <a name="queries"></a>
 
 Запрос для выборки всех пользователей. 
 
-```PostgreSQL
+```SQL
 SELECT first_name, last_name 
 FROM users;
 ```
 
 Вывод средней оценки по всем пользователям и количество ответов на задания
 
-```PostgreSQL
+```SQL
 SELECT AVG(grade), COUNT(grade)
 FROM grades;
 ```
 
 Выборка имен и фамилий пользователей, которые прикрепили задание на задачу с определенным ID
 
-```PostgreSQL
+```SQL
 SELECT first_name, last_name, email
 FROM users
 WHERE id IN (
@@ -186,7 +197,7 @@ WHERE id IN (
 
 Запрос для вывода пользователя по его имени и названию роли. Используется подзапрос для получения ID роли по ее названию
 
-```PostgreSQL
+```SQL
 SELECT first_name, last_name, email 
 FROM users 
 WHERE first_name = 'Иван'
@@ -198,7 +209,7 @@ AND role_id IN (
 
 Запрос для вывода средней оценка по выполненным заданиям пользователя по его имени
 
-```PostgreSQL
+```SQL
 SELECT AVG(grade) AS average_grade
 FROM grades
 WHERE task_answer_id IN (
@@ -211,7 +222,7 @@ WHERE task_answer_id IN (
 
 Запрос для вставки новой записи в таблицу courses, возвращает ID новой записи
 
-```PostgreSQL
+```SQL
 INSERT INTO courses (name, description) 
 VALUES
 	('Разработка на Django', 'Курс по основам Django')
@@ -221,7 +232,7 @@ RETURNING id;
 
 Запрос для изменения email пользователя, возвращает имя и фамилию пользователя и новый email
 
-```PostgreSQL
+```SQL
 UPDATE users
 SET email = 'updated_email@example.com'
 WHERE id IN (
